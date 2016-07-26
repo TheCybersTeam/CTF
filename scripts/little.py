@@ -3,7 +3,7 @@
 # Channel:  https://www.youtube.com/channel/UCKFMv1cifW55lKKps2thhbw
 # By: 	    Offset
 # Greatz:   RATF, Ninja
-# Version:  1.0
+# Version:  1.1
 # Description: This script invert the hexadecimal addres to little endian.
 
 import sys
@@ -30,33 +30,34 @@ def main() :
 	print "                         |___/                                                 "
 
 	try:
-		if len(sys.argv[1]) < 8:
-			usage()
-		else:
-			endereco = sys.argv[1]
-			teste = []
-			i = 0
-			temp = ""
-			for j in endereco:
-				temp += j
-				if i == 0:
-					i=1
-				else:
-					i=0
-					teste.append(temp)
-					temp = ""	
-
-
-			out = ""
-			for i in teste[::-1]:
-				if i!="0x":
-					out+="\\x"+i 
-			
-			print "[OK]-Done!"
-			print "\nHexadecimal  : "+sys.argv[1]
-			print "Little Endian: "+out+"\n"
+		buff = sys.argv[1]
 	except:
-		pass
+		usage()
+		
+	if len(buff) < 8:
+		usage()
+	else:
+		teste = []
+		i = 0
+		temp = ""
+		for j in buff:
+			temp += j
+			if i == 0:
+				i=1
+			else:
+				i=0
+				teste.append(temp)
+				temp = ""	
+
+
+		out = ""
+		for i in teste[::-1]:
+			if i!="0x":
+				out+="\\x"+i 
+		
+		print "[OK]-Done!"
+		print "\nHexadecimal  : "+buff
+		print "Little Endian: "+out+"\n"
 
 
 if __name__ == "__main__":
